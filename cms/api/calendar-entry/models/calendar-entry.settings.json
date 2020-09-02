@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "calendar_entries",
+  "info": {
+    "name": "Calendar Entry"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "DateTime": {
+      "type": "date",
+      "required": true
+    },
+    "BookingLink": {
+      "type": "string",
+      "required": false
+    },
+    "PhoneNumber": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "Images": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "location": {
+      "model": "location",
+      "via": "calendar_entries"
+    },
+    "ContactEmail": {
+      "type": "email"
+    }
+  }
+}

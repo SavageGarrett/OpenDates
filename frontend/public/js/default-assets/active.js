@@ -256,5 +256,8 @@
         pricingTable.removeClass("active");
         $(this).addClass("active");
     });
+    pricingTable.on("mouseleave", function () {
+        pricingTable.removeClass("active");
+    });
 
 })(jQuery);

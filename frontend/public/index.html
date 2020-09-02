@@ -24,13 +24,77 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Open Dates</title>
 
     <!-- Favicon -->
     <link rel="icon" href="./img/core-img/favicon.png">
 
+    <script>
+      function toggleSelector(id) {
+          document.getElementById(id).classList.toggle('active')
+      }
+  </script>
+  
+  <style>
+      body { 
+        padding: 0px !important;
+      }
+
+      .calendar-contain {
+      }
+
+      .popup-bar.active {
+          display: block;
+      }
+  
+      .popup-bar {
+          display: none;
+          position: absolute;
+          background-color: white;
+          z-index: 10;
+      }
+  
+      .popup-bar ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+      }
+  
+      .popup-bar ul li {
+          padding: 10px 15px;
+      }
+  
+      .popup-bar ul li:hover {
+          color: white;
+          background-color: purple;
+      }
+  
+      .popup-bar ul li i {
+          margin-top: 10px;
+          margin-left: 10px;
+          float: right;
+      }
+  
+      .day-events {
+          list-style-type: none;
+      }
+  
+      .day-events li {
+          padding-top: 6px;
+          padding-bottom: 10px;
+      }
+  
+      .day-events li i {
+          margin-right: 10px;
+      }
+  </style>
+
     <!-- Stylesheets -->
+    <script src="https://use.fontawesome.com/da2fc8dcb2.js"></script>
+    <script src="js/jquery.min.js"></script>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="css/calendar_tweaks.css">
+    <link rel="stylesheet" href="css/calendar.css">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

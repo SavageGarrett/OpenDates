@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "locations",
+  "info": {
+    "name": "Location"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "Location": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "users": {
+      "via": "locations",
+      "plugin": "users-permissions",
+      "collection": "user"
+    },
+    "calendar_entries": {
+      "via": "location",
+      "collection": "calendar-entry"
+    }
+  }
+}

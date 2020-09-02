@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/calendar-entries",
+      "handler": "calendar-entry.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/calendar-entries/count",
+      "handler": "calendar-entry.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/calendar-entries/:id",
+      "handler": "calendar-entry.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/calendar-entries",
+      "handler": "calendar-entry.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/calendar-entries/:id",
+      "handler": "calendar-entry.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/calendar-entries/:id",
+      "handler": "calendar-entry.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

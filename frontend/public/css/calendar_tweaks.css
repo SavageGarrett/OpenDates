@@ -1,0 +1,35 @@
+.available-vendors {
+    display: inline-block;
+}
+
+.fa-circle {
+    font-size: 12px !important;
+}
+
+.red {
+    color: red;
+}
+
+.orange {
+    color: orange;
+}
+
+.yellow {
+    color: yellow;
+}
+
+.green {
+    color: green;
+}
+
+.blue {
+    color: blue;
+}
+
+.purple {
+    color: purple;
+}
+
+.pink {
+    color: pink;
+}

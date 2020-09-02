@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_types",
+  "info": {
+    "name": "User Types"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "Type": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "calendar_entries": {
+      "collection": "calendar-entry"
+    }
+  }
+}

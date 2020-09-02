@@ -31,10 +31,13 @@ function App() {
 
         {/* Page Footer */}
         <Footer></Footer>
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/confer.bundle.js"></script>
+        <script src="js/default-assets/active.js"></script><a id="scrollUp" href="#top" style={{position: 'fixed', zIndex: '2147483647', display: 'none'}}><i class="arrow_carrot-up"  i=""></i></a>
     </div>
-
-        
-
     );
 }
 
