@@ -27,17 +27,22 @@ function NavBar() {
                                     </li>
                                     <li>
                                         <Switch>
-                                            <Link to="/about">Our Partners</Link>
+                                            <Link to="/partners">Our Partners</Link>
                                         </Switch>
                                     </li>
                                     <li>
                                         <Switch>
-                                            <Link to="/schedule">Photos</Link>
+                                            <Link to="/about">About</Link>
                                         </Switch>
                                     </li>
                                     <li>
                                         <Switch>
-                                            <Link to="/contact">Blog</Link>
+                                            <Link to="/vendors">For Vendors</Link>
+                                        </Switch>
+                                    </li>
+                                    <li>
+                                        <Switch>
+                                            <Link to="/contact">Contact</Link>
                                         </Switch>
                                     </li>
                                 </ul>

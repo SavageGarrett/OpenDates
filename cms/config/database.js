@@ -1,15 +1,15 @@
 module.exports = ({ env }) => ({
-  defaultConnection: 'default',
-  connections: {
-    default: {
-      connector: 'bookshelf',
-      settings: {
-        client: 'sqlite',
-        filename: env('DATABASE_FILENAME', '.tmp/data.db'),
+  "defaultConnection": "default",
+  "connections": {
+    "default": {
+      "connector": "mongoose",
+      "settings": {
+        "database": "strapi",
+        "uri": "mongodb://localhost:27017"
       },
-      options: {
-        useNullAsDefault: true,
-      },
-    },
-  },
+      "options": {
+        "ssl": true
+      }
+    }
+  }
 });

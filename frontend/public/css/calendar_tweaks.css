@@ -1,5 +1,72 @@
+body {
+    padding: 0 !important;
+}
+
+.calendar__day:hover {
+    background-color: #808080 !important;
+}
+
+.calendar__day:hover .calendar__date{
+    color: white !important;
+}
+
+.popup-bar.active {
+    display: block;
+}
+
+.popup-bar {
+    display: none;
+    position: absolute;
+    background-color: white;
+    z-index: 10;
+}
+
+.popup-bar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.popup-bar ul li {
+    padding: 10px 15px;
+}
+
+.popup-bar ul li:hover {
+    color: white;
+    background-color: purple;
+}
+
+.popup-bar ul li i {
+    margin-top: 10px;
+    margin-left: 10px;
+    float: right;
+}
+
+.day-events {
+    list-style-type: none;
+}
+
+.day-events li {
+    padding-top: 6px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.day-events li:hover {
+    background-color: #808080 !important;
+    color: white;
+}
+
+.day-events li i {
+    margin-right: 10px;
+}
+
 .available-vendors {
     display: inline-block;
+}
+
+.available-vendors i {
+    margin-left: 4px;
 }
 
 .fa-circle {
@@ -33,3 +100,4 @@
 .pink {
     color: pink;
 }
+
