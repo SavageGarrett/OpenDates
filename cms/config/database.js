@@ -8,7 +8,7 @@ module.exports = ({ env }) => ({
         "uri": "mongodb://localhost:27017"
       },
       "options": {
-        "ssl": true
+        "ssl": false
       }
     }
   }
