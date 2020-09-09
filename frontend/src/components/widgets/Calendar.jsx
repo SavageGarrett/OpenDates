@@ -2,19 +2,6 @@ import React from 'react'
 import { Component } from 'react'
 var axios = require('axios')
 
-function getEntries() {
-    return new Promise((resolve, reject) => {
-        axios.get(`http://104.248.237.108:1337/calendar-entries`)
-            .then(resp => {
-                resolve(resp.data)
-            })
-            .catch(err => {
-                reject(err)
-            })
-    })
-    
-}
-
 // Circle Html (after span)
 {/* <div class="available-vendors">
     <i class="fa fa-circle green"></i>
@@ -22,81 +9,80 @@ function getEntries() {
 </div> */}
 
 // Week of Calendar Component
-function Week(props) {
-    let week = []
-    
-    for (let i of props.days) {
-        console.log(i.date, props.date)
-        if (i.date.getDate() == props.date.getDate() && i.date.getMonth() == props.date.getMonth()) {
-            week.push(
-                <div class="calendar__day today">
-                    <span class="calendar__date">{i.number}</span>
-                </div>
-            )
-        } else if (i.active) {
-            week.push(
-                <div class="calendar__day">
-                    <span class="calendar__date">{i.number}</span>
-                </div>
-            )
-        } else {
-            week.push(
-                <div class="calendar__day inactive">
-                    <span class="calendar__date">{i.number}</span>
-                </div>
-            )
+class Week extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.days != prevProps.days) {
+            this.setState({
+                days: this.props.days
+            })
         }
     }
 
-    return week
+    render() {
+        let week = []
+    
+        for (let i of this.props.days) {
+            if (i.date.getDate() == this.props.state.date.getDate() && i.date.getMonth() == this.props.state.date.getMonth()) {
+                week.push(
+                    <div class="calendar__day today" onClick={() => {this.props.setDay(i.date); this.setState({})}}>
+                        <span class="calendar__date">{i.number}</span>
+                    </div>
+                )
+            } else if (i.active) {
+                week.push(
+                    <div class="calendar__day" onClick={() => {this.props.setDay(i.date); this.setState({})}}>
+                        <span class="calendar__date">{i.number}</span>
+                    </div>
+                )
+            } else {
+                week.push(
+                    <div class="calendar__day inactive" onClick={() => {this.props.setDay(i.date); this.setState({})}}>
+                        <span class="calendar__date">{i.number}</span>
+                    </div>
+                )
+            }
+        }
+
+        return week
+    }
 }
 
 // All Weeks on Calendar Component
-function Weeks(props) {
-    // Declare Weeks Array
-    let weeks = []
-
-    // Loop through Week and add to display
-    for (let i of props.days) {
-        weeks.push(
-            <section class="calendar__week">
-                <Week days={i} date={props.date} />
-            </section>
-        )
+class Weeks extends Component {
+    constructor(props) {
+        super(props)
     }
 
-    // Return Weeks
-    return weeks
+    render() {
+        // Declare Weeks Array
+        let weeks = []
+
+        // Loop through Week and add to display
+        for (let i of this.props.days) {
+            weeks.push(
+                <section class="calendar__week">
+                    <Week state={this.props.state} setDay={this.props.setDay} days={i} date={this.props.date} />
+                </section>
+            )
+        }
+
+        // Return Weeks
+        return weeks
+    }
 }
 
 // Calendar Component
 class Calendar extends Component {
-
-    set_state(state) {
-        if (state.hasOwnProperty('date')) this.state.date = state.date
-        if (state.hasOwnProperty('events')) this.state.events = state.events
-        if (state.hasOwnProperty('filters')) this.state.filters = state.filters
-        if (state.hasOwnProperty('days')) this.state.days = state.days
+    constructor(props) {
+        super(props)
+        this.changeDate = this.changeDate.bind(this)
     }
 
-    get_state() {
-        return this.state
-    }
-
-    // Create a 5 x 7 array
-    createDays() {
-        // Create array of 5 elements
-        let days = new Array(5)
-
-        // Add 5 Arrays of 7
-        for (let i = 0; i < 5; i++) {
-            days[i] = new Array(7)
-        }
-
-        // Return Array
-        return days
-    }
-
+    // State Data
     state = {
         date: new Date(),
         events: [],
@@ -107,12 +93,12 @@ class Calendar extends Component {
         },
         days: this.createDays()
     }
-
+    
     setDays() {
         // Set Start Calendar Day
         let firstDayCalendar = new Date(this.state.date.getFullYear(), this.state.date.getMonth(), 0)
         firstDayCalendar.setDate(firstDayCalendar.getDate() - firstDayCalendar.getDay())
-
+    
         // Loop through all days in calendar
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 7; j++) {
@@ -124,15 +110,49 @@ class Calendar extends Component {
                 } else {
                     this.state.days[i][j] = { active: true, number: firstDayCalendar.getDate(), date: new Date(firstDayCalendar) }
                 }
-
+    
                 // Increment Day
                 firstDayCalendar.setDate(firstDayCalendar.getDate() + 1)
             }
         }
     }
+    
+    // Create a 5 x 7 array
+    createDays() {
+        // Create array of 5 elements
+        let days = new Array(5)
+    
+        // Add 5 Arrays of 7
+        for (let i = 0; i < 5; i++) {
+            days[i] = new Array(7)
+        }
+    
+        // Return Array
+        return days
+    }
+    
+    changeDate(date) {
+        console.log(date)
+        this.setState({'date': date})
+        this.setDays()
+        console.log(date, this.state.date)
+    }
+    
+    getEntries() {
+        return new Promise((resolve, reject) => {
+            axios.get(`http://104.248.237.108:1337/calendar-entries`)
+                .then(resp => {
+                    resolve(resp.data)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+        
+    }
 
     componentDidMount() {
-        Promise.all([getEntries()])
+        Promise.all([this.getEntries()])
             .then(values => {
                 this.setState({
                     events: values[0]
@@ -145,7 +165,6 @@ class Calendar extends Component {
 
     render() {
         this.setDays()
-        console.log(this.state)
         return (
             <div style={{paddingTop: '200px', paddingBottom: '80px'}}>
                 <main class="calendar-contain">
@@ -219,7 +238,7 @@ class Calendar extends Component {
                             <span class="top-bar__days">Sun</span>
                         </section>
 
-                        <Weeks days={this.state.days} date={this.state.date} />
+                        <Weeks state={this.state} setDay={this.changeDate} days={this.state.days} date={this.state.date} />
                     </section>
                 </main>
             </div>
