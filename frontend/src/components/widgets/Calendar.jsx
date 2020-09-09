@@ -1,6 +1,32 @@
 import React from 'react'
 import { Component } from 'react'
+import {MonthSelector, YearSelector, CitySelector, VendorSelector} from './CalendarSelectors'
 var axios = require('axios')
+
+const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+]
+
+const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+]
 
 // Circle Html (after span)
 {/* <div class="available-vendors">
@@ -80,6 +106,8 @@ class Calendar extends Component {
     constructor(props) {
         super(props)
         this.changeDate = this.changeDate.bind(this)
+        this.changeDateMonth = this.changeDateMonth.bind(this)
+        this.changeDateYear = this.changeDateYear.bind(this)
     }
 
     // State Data
@@ -132,10 +160,22 @@ class Calendar extends Component {
     }
     
     changeDate(date) {
-        console.log(date)
         this.setState({'date': date})
         this.setDays()
-        console.log(date, this.state.date)
+    }
+
+    changeDateMonth(month) {
+        var date = this.state.date;
+        date.setMonth(month)
+        this.setState({'date': date})
+        this.setDays()
+    }
+
+    changeDateYear(year) {
+        var date = this.state.date;
+        date.setFullYear(year)
+        this.setState({'date': date})
+        this.setDays()
     }
     
     getEntries() {
@@ -170,55 +210,18 @@ class Calendar extends Component {
                 <main class="calendar-contain">
 
                         <section class="title-bar">
-                            <span id="month-selector" class="title-bar__month">
-                                September
-                                <div id="selector-month" class="popup-bar">
-                                    <ul>
-                                        <li>January</li>
-                                        <li>February</li>
-                                        <li>March</li>
-                                        <li>April</li>
-                                        <li>May</li>
-                                    </ul>
-                                </div>
-                            </span>
-                            <span id="year-selector" style={{marginLeft: '10px'}} class="title-bar__month">
-                                2020
-                                <div id="selector-year" class="popup-bar">
-                                    <ul>
-                                        <li>2020</li>
-                                        <li>2021</li>
-                                        <li>2022</li>
-                                        <li>2023</li>
-                                        <li>2024</li>
-                                    </ul>
-                                </div>
-                            </span>
-                            <span id="city-selector" style={{marginLeft: '10px'}} class="title-bar__month">
-                                Rochester
-                                <div id="selector-city" class="popup-bar">
-                                    <ul>
-                                        <li>Rochester</li>
-                                        <li>Buffalo</li>
-                                        <li>Syracuse</li>
-                                    </ul>
-                                </div>
-                            </span>
-                            <span id="vendor-selector" style={{marginLeft: '10px'}} class="title-bar__month">
-                                All
-                                <div id="selector-vendor" class="popup-bar">
-                                    <ul>
-                                        <li>Venue <i class="fa fa-circle green"></i></li>
-                                        <li>DJ <i class="fa fa-circle yellow"></i></li>
-                                        <li>Florist <i class="fa fa-circle purple"></i></li>
-                                        <li>Caterer <i class="fa fa-circle orange"></i></li>
-                                    </ul>
-                                </div>
-                            </span>
+                            <MonthSelector setMonth={this.changeDateMonth} date={this.state.date}></MonthSelector>
+
+                            <YearSelector setYear={this.changeDateYear} date={this.state.date}></YearSelector>
+
+                            <CitySelector></CitySelector>
+
+                            <VendorSelector></VendorSelector>
                         </section>
 
+                        {/* Selected Date */}
                         <aside class="calendar__sidebar">
-                            <h2 class="sidebar__heading">Tuesday<br/>September 2</h2>
+                            <h2 class="sidebar__heading">{weekdays[this.state.date.getDay()]}<br/>{months[this.state.date.getMonth()]} {this.state.date.getDate()}</h2>
                             <ul class="day-events">
                                 <li><i class="fa fa-circle green"></i> Wintergarden</li>
                                 <li><i class="fa fa-circle green"></i> Woodcliffe</li>
@@ -229,13 +232,13 @@ class Calendar extends Component {
 
                         <section class="calendar__days">
                             <section class="calendar__top-bar">
+                            <span class="top-bar__days">Sun</span>
                             <span class="top-bar__days">Mon</span>
                             <span class="top-bar__days">Tue</span>
                             <span class="top-bar__days">Wed</span>
                             <span class="top-bar__days">Thu</span>
                             <span class="top-bar__days">Fri</span>
                             <span class="top-bar__days">Sat</span>
-                            <span class="top-bar__days">Sun</span>
                         </section>
 
                         <Weeks state={this.state} setDay={this.changeDate} days={this.state.days} date={this.state.date} />
