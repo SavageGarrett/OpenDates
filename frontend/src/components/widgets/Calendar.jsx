@@ -34,6 +34,10 @@ const months = [
     <i class="fa fa-circle yellow"></i>
 </div> */}
 
+function DayDots(props) {
+
+}
+
 // Week of Calendar Component
 class Week extends Component {
     constructor(props) {
@@ -121,6 +125,32 @@ class Calendar extends Component {
         },
         days: this.createDays()
     }
+
+    setDays1() {
+        let new_days = []
+
+        let firstDayCalendar = new Date(this.state.date.getFullYear(), this.state.date.getMonth(), 0)
+        let month1 = firstDayCalendar.getMonth();
+        firstDayCalendar.setDate(firstDayCalendar.getDate() - firstDayCalendar.getDay())
+    
+        // Create calendar day for last day to add
+        let lastDayCalendar = new Date()
+        lastDayCalendar.setDate(firstDayCalendar.getDate() + 34)
+
+        // Add another week if still not out of original month
+        if(!lastDayCalendar.getMonth() > month1) {
+            lastDayCalendar.setDate(lastDayCalendar.getDate() + 7)
+        }
+
+        let counter = 0;
+        while(firstDayCalendar < lastDayCalendar) {
+            if (counter % 7 == 0) {
+            }
+            
+            firstDayCalendar.setDate(firstDayCalendar.getDate() + 1)
+            counter++;
+        }
+    }
     
     setDays() {
         // Set Start Calendar Day
@@ -205,6 +235,7 @@ class Calendar extends Component {
 
     render() {
         this.setDays()
+        console.log(this.state.events)
         return (
             <div style={{paddingTop: '200px', paddingBottom: '80px'}}>
                 <main class="calendar-contain">

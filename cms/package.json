@@ -12,6 +12,7 @@
   "devDependencies": {},
   "dependencies": {
     "knex": "<0.20.0",
+    "scheduler": "^0.19.1",
     "sqlite3": "latest",
     "strapi": "3.1.4",
     "strapi-admin": "3.1.4",
